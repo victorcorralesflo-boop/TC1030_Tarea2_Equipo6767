@@ -1,31 +1,47 @@
-#ifndef PUNTO_H
-#define PUNTO_H
+#ifndef BUFFER_H
+#define BUFFER_H
 
+#include <cstring>
 #include <iostream>
 
-class Punto {
+class Buffer {
 private:
-    double x;
-    double y;
+    char* datos;
+    int tamanio;
 
 public:
-    Punto(double x = 0, double y = 0)
-        : x(x), y(y) {}
-
-    double getX() const {
-        return x;
+    Buffer(const char* texto = "") {
+        tamanio = std::strlen(texto);
+        datos = new char[tamanio + 1];
+        std::strcpy(datos, texto);
     }
 
-    double getY() const {
-        return y;
+    Buffer(const Buffer& otro) {
+        tamanio = otro.tamanio;
+        datos = new char[tamanio + 1];
+        std::strcpy(datos, otro.datos);
     }
 
-    bool operator==(const Punto& otro) const {
-        return x == otro.x && y == otro.y;
+    Buffer& operator=(const Buffer& otro) {
+        if (this != &otro) {
+            delete[] datos;
+            tamanio = otro.tamanio;
+            datos = new char[tamanio + 1];
+            std::strcpy(datos, otro.datos);
+        }
+        return *this;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Punto& p) {
-        os << "(" << p.x << ", " << p.y << ")";
+    const char* getDatos() const {
+        return datos;
+    }
+
+    ~Buffer() {
+        delete[] datos;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Buffer& buffer) {
+        os << buffer.datos;
         return os;
     }
 };

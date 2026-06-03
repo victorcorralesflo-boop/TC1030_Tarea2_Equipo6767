@@ -1,37 +1,28 @@
-#ifndef COMPLEJO_H
-#define COMPLEJO_H
+#ifndef CONTADOR_H
+#define CONTADOR_H
 
 #include <iostream>
 
-class Complejo {
+class Contador {
 private:
-    double real;
-    double imaginario;
+    int valor;
 
 public:
-    Complejo(double real = 0, double imaginario = 0)
-        : real(real), imaginario(imaginario) {}
+    Contador(int valor = 0)
+        : valor(valor) {}
 
-    double getReal() const {
-        return real;
+    int getValor() const {
+        return valor;
     }
 
-    double getImaginario() const {
-        return imaginario;
+    Contador operator++(int) {
+        Contador temporal = *this;
+        valor++;
+        return temporal;
     }
 
-    Complejo operator+(const Complejo& otro) const {
-        return Complejo(real + otro.real, imaginario + otro.imaginario);
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const Complejo& c) {
-        os << "(" << c.real;
-        if (c.imaginario >= 0) {
-            os << " + " << c.imaginario << "i";
-        } else {
-            os << " - " << -c.imaginario << "i";
-        }
-        os << ")";
+    friend std::ostream& operator<<(std::ostream& os, const Contador& contador) {
+        os << contador.valor;
         return os;
     }
 };

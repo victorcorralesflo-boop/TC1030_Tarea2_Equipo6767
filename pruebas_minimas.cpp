@@ -1,37 +1,35 @@
 #include <iostream>
-#include "MatrixOp.h"
-#include "TemplateUtils.h"
+#include "Complejo.h"
+#include "Punto.h"
+#include "Empleado.h"
+#include "Contador.h"
+#include "Buffer.h"
 
 int main() {
-    std::cout << "=== Parte 2: Bloque B - Polimorfismo ===" << std::endl;
+    std::cout << "=== Parte 1: Sobrecarga de operadores ===" << std::endl;
 
-    MatrixOp A({
-        {1, 2},
-        {3, 4}
-    });
+    Complejo c1(2, 3);
+    Complejo c2(4, -1);
+    Complejo c3 = c1 + c2;
+    std::cout << "Complejo operator+: " << c1 << " + " << c2 << " = " << c3 << std::endl;
 
-    MatrixOp B({
-        {5, 6},
-        {7, 8}
-    });
+    Punto p1(3, 5);
+    Punto p2(3, 5);
+    Punto p3(4, 9);
+    std::cout << "Punto operator== p1 == p2: " << (p1 == p2 ? "true" : "false") << std::endl;
+    std::cout << "Punto operator== p1 == p3: " << (p1 == p3 ? "true" : "false") << std::endl;
 
-    MatrixOp suma = A + B;
-    MatrixOp resta = A - B;
+    Empleado empleado(101, "Ana Lopez", 15000);
+    std::cout << "Empleado operator<<: " << empleado << std::endl;
 
-    std::cout << "B1 - A + B:" << std::endl;
-    suma.print();
+    Contador contador(7);
+    Contador anterior = contador++;
+    std::cout << "Contador operator++(int): antes = " << anterior << ", despues = " << contador << std::endl;
 
-    std::cout << "B1 - A - B:" << std::endl;
-    resta.print();
-
-    int enteros[] = {4, 9, 2, 7, 1};
-    double decimales[] = {3.2, 8.5, 1.1, 6.7};
-
-    std::cout << "B2 - maxValue<int>: " << maxValue(enteros, 5) << std::endl;
-    std::cout << "B2 - maxValue<double>: " << maxValue(decimales, 4) << std::endl;
-
-    IMatrix* matriz = &A;
-    std::cout << "B3 - Determinante usando IMatrix*: " << matriz->determinant() << std::endl;
+    Buffer b1("Hola");
+    Buffer b2("Mundo");
+    b1 = b2;
+    std::cout << "Buffer operator=: " << b1 << std::endl;
 
     return 0;
 }

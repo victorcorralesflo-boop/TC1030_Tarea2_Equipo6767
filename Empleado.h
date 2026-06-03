@@ -1,39 +1,33 @@
-# Diagrama de clases - Polimorfismo
+#ifndef PUNTO_H
+#define PUNTO_H
 
-## Diagrama en Mermaid
+#include <iostream>
 
-```mermaid
-classDiagram
-    class IMatrix {
-        <<interface>>
-        +determinant() double
-        +~IMatrix()
+class Punto {
+private:
+    double x;
+    double y;
+
+public:
+    Punto(double x = 0, double y = 0)
+        : x(x), y(y) {}
+
+    double getX() const {
+        return x;
     }
 
-    class MatrixOp {
-        -vector~vector~double~~ data
-        -determinantRecursive(matrix) double
-        +MatrixOp()
-        +MatrixOp(data)
-        +rows() int
-        +cols() int
-        +operator+(other) MatrixOp
-        +operator-(other) MatrixOp
-        +determinant() double
-        +print() void
+    double getY() const {
+        return y;
     }
 
-    IMatrix <|-- MatrixOp
-```
+    bool operator==(const Punto& otro) const {
+        return x == otro.x && y == otro.y;
+    }
 
-## Explicación
+    friend std::ostream& operator<<(std::ostream& os, const Punto& p) {
+        os << "(" << p.x << ", " << p.y << ")";
+        return os;
+    }
+};
 
-La clase `IMatrix` funciona como una interfaz porque contiene el método virtual puro `determinant()`.  
-La clase `MatrixOp` hereda de `IMatrix` e implementa dicho método, por lo que se puede usar polimorfismo en tiempo de ejecución mediante un apuntador de tipo `IMatrix*`.
-
-Ejemplo:
-
-```cpp
-IMatrix* matriz = &A;
-cout << matriz->determinant();
-```
+#endif
