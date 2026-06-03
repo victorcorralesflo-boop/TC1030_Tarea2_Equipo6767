@@ -1,1 +1,8 @@
-# TC1030_Tarea2_Equipo6767
+*.exe
+*.o
+*.out
+sobrecarga
+polimorfismo
+pruebas
+.vscode/
+.DS_Store
